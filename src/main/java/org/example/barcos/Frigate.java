@@ -1,8 +1,8 @@
 package org.example.barcos;
 
 public class Frigate extends Ship {
-    public Frigate() {
-        super(3);
+    public Frigate(String name, int number, int level) {
+        super(3, name, number, "frigate", level);
     }
 
     @Override

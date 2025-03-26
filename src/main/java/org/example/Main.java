@@ -1,38 +1,34 @@
 package org.example;
 
 import org.example.builder.ShipBuilder.ShipBuilder;
+import org.example.barcos.Ship;
+import org.example.hash.ShipHashTable;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Introduce el nombre del Jugador 1:");
-        Player player1 = new Player(scanner.nextLine());
-        System.out.println("Introduce el nombre del Jugador 2:");
-        Player player2 = new Player(scanner.nextLine());
+        ShipHashTable shipHashTable = new ShipHashTable();
 
         for (int i = 0; i < 3; i++) {
-            System.out.println(player1.getName() + ", elige un barco (battleship, frigate, canoe):");
-            player1.addShip(new ShipBuilder().setType(scanner.nextLine()).build());
-            System.out.println(player2.getName() + ", elige un barco (battleship, frigate, canoe):");
-            player2.addShip(new ShipBuilder().setType(scanner.nextLine()).build());
+            System.out.println("Introduce el nombre del barco:");
+            String name = scanner.nextLine();
+
+            System.out.println("Introduce el número del barco:");
+            int number = scanner.nextInt();
+            scanner.nextLine(); // Consumir newline
+
+            System.out.println("Introduce el tipo del barco (battleship, frigate, canoe):");
+            String type = scanner.nextLine();
+
+            System.out.println("Introduce el nivel del barco:");
+            int level = scanner.nextInt();
+            scanner.nextLine(); // Consumir newline
+
+            Ship ship = new ShipBuilder().setName(name).setNumber(number).setType(type).setLevel(level).build();
+            shipHashTable.addShip(ship);
         }
 
-        while (true) {
-            player1.attack(player2);
-            player2.attack(player1);
-
-            if (player1.allShipsSunk() && player2.allShipsSunk()) {
-                System.out.println("Empate. Ambos jugadores han perdido todos sus barcos.");
-                break;
-            } else if (player1.allShipsSunk()) {
-                System.out.println(player2.getName() + " gana la partida.");
-                break;
-            } else if (player2.allShipsSunk()) {
-                System.out.println(player1.getName() + " gana la partida.");
-                break;
-            }
-        }
+        System.out.println("Barcos agregados correctamente en la tabla hash.");
     }
 }
-

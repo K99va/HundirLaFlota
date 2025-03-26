@@ -1,13 +1,13 @@
 package org.example.barcos;
 
-public class Battleship extends Ship {
-    private boolean[] sections; // Cada parte del barco es independiente
 
-    public Battleship() {
-        super(5);
+public class Battleship extends Ship {
+    private boolean[] sections;
+
+    public Battleship(String name, int number, int level) {
+        super(5, name, number, "battleship", level);
         sections = new boolean[size];
     }
-
 
     public void hit(int position) {
         if (position >= 0 && position < size) {
@@ -19,8 +19,7 @@ public class Battleship extends Ship {
     public boolean isSunk() {
         for (boolean section : sections) {
             if (!section) {
-                boolean b = false;
-                return b;
+                return false;
             }
         }
         return true;
